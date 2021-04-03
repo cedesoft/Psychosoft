@@ -67,7 +67,7 @@ return [
     'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-dark',
-    'usermenu_image' => true,
+    'usermenu_image' => false,
     'usermenu_desc' => true,
     'usermenu_profile_url' => true,
 
@@ -187,7 +187,7 @@ return [
     */
 
     'use_route_url' => false,
-    'dashboard_url' => 'home',
+    'dashboard_url' => '/agenda',
     'logout_url' => 'logout',
     'login_url' => 'login',
     'register_url' => 'register',
@@ -227,7 +227,7 @@ return [
         ['header' => 'Ajustes de la cuenta'],
         [
             'text' => 'profile',
-            'url'  => '#',
+            'url'  => '/user/profile',
             'icon' => 'fas fa-fw fa-user',
             'icon_color' => 'light',
         ],
@@ -248,11 +248,13 @@ return [
                 [
                     'text' => 'Calendario',
                     'icon' => 'far fa-calendar-alt',
-                    'icon_color' => 'red',
+                    'icon_color' => 'green',
                     'route'     => 'agenda.index',
                 ],
                 [
                     'text'    => 'Eventos',
+                    'icon' => 'far fa-calendar-check',
+                    'icon_color' => 'green',
                     'url'     => '/eventos',
                 ],
             ],

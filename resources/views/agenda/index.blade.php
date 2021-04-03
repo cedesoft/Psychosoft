@@ -14,7 +14,6 @@
             </x-jet-dropdown-link>
         </form >
     </div> --}}
-
     <div id='calendar' class="bg-white card pt-2 pb-2 pl-4 pr-4 m-auto"  style="border-radius: 15px;"></div>
 
     <!--Modal -->

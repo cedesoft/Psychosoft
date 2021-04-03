@@ -27,3 +27,7 @@ Route::resource('agenda', EventosController::class);
 Route::get('/eventos', function () {
     return view('agenda.events');
 });
+
+Route::get('/perfil', function () {
+    return view('profile.show');
+});

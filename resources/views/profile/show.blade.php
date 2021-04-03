@@ -1,11 +1,11 @@
-<x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('Perfil') }}
-        </h2>
-    </x-slot>
+@extends('adminlte::page')
 
-    <div>
+@section('title', 'Dashboard')
+
+@section('content')
+<div class="container-fluid card bg-gray-50 col-lg-10 col-md-10 col-sm-12">
+    <x-app-layout>
+    <div class="bg-gray-50">
         <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
             @if (Laravel\Fortify\Features::canUpdateProfileInformation())
                 @livewire('profile.update-profile-information-form')
@@ -43,3 +43,17 @@
         </div>
     </div>
 </x-app-layout>
+</div>
+
+@stop
+
+@section('css')
+    <link rel="stylesheet" href="/css/admin_custom.css">
+@stop
+
+@section('js')
+    <script> console.log('Hi!'); </script>
+@stop
+
+
+

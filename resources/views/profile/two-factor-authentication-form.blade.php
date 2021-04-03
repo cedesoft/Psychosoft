@@ -16,7 +16,7 @@
             @endif
         </h3>
 
-        <div class="mt-3 max-w-xl text-sm text-gray-600">
+        <div class="mt-0 max-w-xl text-sm text-gray-600">
             <p>
                 {{ __('Cuando la autenticación de dos factores está activada, se le pedirá un token seguro y aleatorio durante la autenticación. Puede recuperar este token desde la aplicación Google Authenticator de su teléfono.') }}
             </p>
