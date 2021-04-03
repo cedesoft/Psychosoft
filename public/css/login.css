@@ -1,0 +1,72 @@
+:root{
+    --dark: #00011b;
+    --dark-x: #000010;
+    --light: rgb(255, 255, 255);
+
+}
+body {
+    font-family: 'Spartan', sans-serif;
+    font-weight: 300;
+    color: var(--light) !important;
+}
+.bg-dark {
+    background-color: var(--dark) !important;
+}
+.bg-dark { background-color: var(--dark) !important; }
+
+.bg-dark-x { background-color: var(--dark-x); }
+
+.form-control, .btn {
+    min-height: 3.125rem;
+    line-height: initial;
+}
+.img-1{ 
+    background-image: url("/img/img.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
+.img-2{ 
+    background-image: url('/img/img2.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-r1{ 
+    background-image: url('https://www.utel.edu.mx/blog/wp-content/uploads/2013/07/shutterstock_136749167.jpg');
+    background-size: cover;
+    background-position: center;
+}
+
+.img-r2{ 
+    background-image: url('https://www.davisvanguard.org/wp-content/uploads/2019/08/Therapy-Session.jpg');
+    background-size: cover;
+    background-position: center;
+}
+.form-control{
+    color: #c1c1c1;
+    font-size: 18px; 
+    border-radius: 20px;
+}
+
+.form-control:focus{
+    background-color: #0b1741;
+    box-shadow: none;
+    color: var(--light);
+    font-size: 19px; 
+    color: rgb(122, 255, 255);
+}
+.text{
+    font-size: smaller;
+}
+
+.btn-primary{
+    background-color: #1f0045 !important;
+    border: none;
+    border-radius: 20px;
+}
+
+.btn-primary:hover{
+    background-color: #2d0063 !important;
+    border: none;
+}
