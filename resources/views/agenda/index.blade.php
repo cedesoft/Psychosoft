@@ -14,7 +14,7 @@
             </x-jet-dropdown-link>
         </form >
     </div> --}}
-    <div id='calendar' class="bg-white card pt-2 pb-2 pl-4 pr-4 m-auto"  style="border-radius: 15px;"></div>
+    <div id='calendar' class="bg-white card border-primary pt-2 pb-2 pl-4 pr-4 m-auto"  style="border-radius: 15px;"></div>
 
     <!--Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -75,10 +75,10 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button id="btnAgregar" class="btn btn-outline-primary btn-sm">Agregar</button>
-                    <button id="btnModificar" class="btn btn-outline-primary btn-sm">Modificar</button>
-                    <button id="btnEliminar" class="btn btn-outline-primary btn-sm">Eliminar</button>
-                    <button id="btnCancelar" data-dismiss="modal" class="btn btn-outline-primary btn-sm">Cancelar</button>
+                    <button id="btnAgregar" class="btn btn-outline-primary btn-sm"><i class="fas fa-plus pr-2"></i>Agregar</button>
+                    <button id="btnModificar" class="btn btn-outline-info btn-sm"><i class="fas fa-edit pr-2"></i>Modificar</button>
+                    <button id="btnEliminar" class="btn btn-outline-danger btn-sm"><i class="fas fa-trash-alt pr-2"></i>Eliminar</button>
+                    <button id="btnCancelar" data-dismiss="modal" class="btn btn-outline-secondary btn-sm"><i class="fas fa-ban pr-2"></i>Cancelar</button>
                 </div>
             </div>
         </div>
@@ -96,7 +96,9 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             font-size: 14px;
         }
-
+        .btn{
+            border-radius: 12px;
+        }
         #calendar {
             max-width: 900px;
         }
@@ -117,12 +119,17 @@
                 initialView: 'dayGridMonth',
                 themeSystem: 'bootstrap',
                 nowIndicator: true,
+                selectable: true,
                 headerToolbar: {
                     start: 'prev,next,today',
                     center: 'title',
                     end: 'dayGridMonth,dayGridWeek,timeGridDay,listMonth'
                 }, 
-                
+                eventContent: function(event, element) { 
+                    element.find('.fc-title').append("<br/>" + event.descripcion); 
+                },
+                dayMaxEvents: true,
+
                 // buttons for switching between views
                 titleFormat: {year: 'numeric', month: 'long' },
                 customButtons: {
@@ -140,6 +147,8 @@
                     var generateRandomKey = () => Date.now();
                     $('#txtID').val(generateRandomKey);
                     $('#fechaInicio').val(info.dateStr);
+                    $('#btnModificar').hide();
+                    $('#btnEliminar').hide();
                 },
 
                 eventClick: function (info) {
@@ -148,6 +157,10 @@
                     $('#txtTitulo').val(info.event.title);
                     $('#txtDescripcion').val(info.event.extendedProps.descripcion);
                     $('#txtColor').val(info.event.backgroundColor);
+                    
+                    $('#btnModificar').show();
+                    $('#btnEliminar').show();
+                    $('#btnAgregar').hide();
 
                     var startDate = info.event.start;
                     var endDate = info.event.end;
@@ -162,6 +175,7 @@
                     $('#horaFin').val(getDayOrTime(arrEndDate.getHours()) + ":" + getDayOrTime(arrEndDate.getMinutes()));
                     $('#exampleModal').modal('toggle');
                 },
+                
 
                 events: "{{ url('/agenda/show') }}"
             });

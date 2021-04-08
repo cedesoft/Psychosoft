@@ -126,7 +126,7 @@ return [
     'classes_content_wrapper' => '',
     'classes_content_header' => '',
     'classes_content' => '',
-    'classes_sidebar' => 'sidebar-dark-blue',
+    'classes_sidebar' => 'sidebar-dark-indigo',
     'classes_sidebar_nav' => '',
     'classes_topnav' => 'navbar-white navbar-light',
     'classes_topnav_nav' => 'navbar-expand',
@@ -145,7 +145,7 @@ return [
     */
 
     'sidebar_mini' => false,
-    'sidebar_collapse' => false,
+    'sidebar_collapse' => true,
     'sidebar_collapse_auto_size' => true,
     'sidebar_collapse_remember' => false,
     'sidebar_collapse_remember_no_transition' => true,
@@ -261,22 +261,30 @@ return [
         ],
         [
             'text'    => 'Pacientes',
-            'icon'    => 'fas fa-fw fa-home',
+            'icon'    => 'fas fa-hospital-user',
             'submenu' => [
                 [
                     'text' => 'Ver todo',
+                    'icon'    => 'fas fa-users',
+                    'icon_color' => 'green',
                     'url'  => '#',
                 ],
                 [
                     'text'    => 'Agregar Paciente',
+                    'icon'    => 'fas fa-user-plus',
+                    'icon_color' => 'green',
                     'url'     => '#',
                 ],
                 [
                     'text'    => 'Modificar Paciente',
+                    'icon'    => 'fas fa-user-edit',
+                    'icon_color' => 'green',
                     'url'     => '#',
                 ],
                 [
                     'text' => 'H/D Paciente',
+                    'icon'    => 'fas fa-user-alt-slash',
+                    'icon_color' => 'green',
                     'url'  => '#',
                 ],
             ],

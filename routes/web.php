@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EventosController;
+use App\Http\Livewire\FichaPaciente;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -31,3 +32,5 @@ Route::get('/eventos', function () {
 Route::get('/perfil', function () {
     return view('profile.show');
 });
+
+Route::get('/paciente', FichaPaciente::class);
