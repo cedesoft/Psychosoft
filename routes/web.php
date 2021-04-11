@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\EventosController;
 use App\Http\Livewire\FichaPaciente;
+use App\Http\Livewire\ExpedienteMedico;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -33,4 +34,14 @@ Route::get('/perfil', function () {
     return view('profile.show');
 });
 
-Route::get('/paciente', FichaPaciente::class);
+Route::get('/pacientes/agregar', function () {
+    return view('pacientes.add');
+});
+
+Route::get('/pacientes/habilitar-desactivar', function () {
+    return view('pacientes.enable_disable');
+});
+
+Route::get('/pacientes', function () {
+    return view('pacientes.show');
+});

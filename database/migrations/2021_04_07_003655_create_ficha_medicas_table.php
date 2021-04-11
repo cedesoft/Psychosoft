@@ -13,7 +13,7 @@ class CreateFichaMedicasTable extends Migration
      */
     public function up()
     {
-        Schema::create('ficha_medicas', function (Blueprint $table) {
+        Schema::create('ficha_medica', function (Blueprint $table) {
             $table->id();
             $table->string('escolaridad');
             $table->string('ocupacion');

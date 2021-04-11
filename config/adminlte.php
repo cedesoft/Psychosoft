@@ -64,10 +64,10 @@ return [
     |
     */
 
-    'usermenu_enabled' => true,
+    'usermenu_enabled' => false,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-dark',
-    'usermenu_image' => false,
+    'usermenu_image' => true,
     'usermenu_desc' => true,
     'usermenu_profile_url' => true,
 
@@ -145,9 +145,9 @@ return [
     */
 
     'sidebar_mini' => false,
-    'sidebar_collapse' => true,
+    'sidebar_collapse' => false,
     'sidebar_collapse_auto_size' => true,
-    'sidebar_collapse_remember' => false,
+    'sidebar_collapse_remember' => true,
     'sidebar_collapse_remember_no_transition' => true,
     'sidebar_scrollbar_theme' => 'os-theme-light',
     'sidebar_scrollbar_auto_hide' => 'l',
@@ -267,13 +267,13 @@ return [
                     'text' => 'Ver todo',
                     'icon'    => 'fas fa-users',
                     'icon_color' => 'green',
-                    'url'  => '#',
+                    'url'  => '/pacientes',
                 ],
                 [
                     'text'    => 'Agregar Paciente',
                     'icon'    => 'fas fa-user-plus',
                     'icon_color' => 'green',
-                    'url'     => '#',
+                    'url'     => '/pacientes/agregar',
                 ],
                 [
                     'text'    => 'Modificar Paciente',
@@ -285,7 +285,7 @@ return [
                     'text' => 'H/D Paciente',
                     'icon'    => 'fas fa-user-alt-slash',
                     'icon_color' => 'green',
-                    'url'  => '#',
+                    'url'  => '/pacientes/habilitar-desactivar',
                 ],
             ],
         ],

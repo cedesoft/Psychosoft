@@ -28,7 +28,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="container">
-                        <div class="row mb-2">
+                        <div class="row mb-2 d-none">
                             <label for="txtID">ID</label>
                             <input type="text" name="txtID" class="form-control" id="txtID">
                         </div>
@@ -124,14 +124,11 @@
                     start: 'prev,next,today',
                     center: 'title',
                     end: 'dayGridMonth,dayGridWeek,timeGridDay,listMonth'
-                }, 
-                eventContent: function(event, element) { 
-                    element.find('.fc-title').append("<br/>" + event.descripcion); 
                 },
                 dayMaxEvents: true,
 
                 // buttons for switching between views
-                titleFormat: {year: 'numeric', month: 'long' },
+                titleFormat: { year: 'numeric', month: 'long' },
                 customButtons: {
                     button: {
                         text: 'custom!',

@@ -24,6 +24,11 @@
     border: 1px solid #00abb9 !important;
     color: #6300a5 !important;
 }
+.custom-select{
+    color: #83000d;
+    border-radius: 10px !important;
+    border: 1px solid #00abb9 !important;
+}
 .lbl{
     color: #83000d !important;
     font-weight: 400 !important;
@@ -34,8 +39,11 @@
     font-weight: 400 !important;
 }
 .lbl_2{
-    
     font-size: 12px !important;
+    border-radius: 10px !important;
+}
+.lb2{
+    border-radius: 10px !important;
 }
 .form-label-group {
     position: relative;
