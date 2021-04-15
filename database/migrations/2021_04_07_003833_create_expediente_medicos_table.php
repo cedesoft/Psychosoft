@@ -32,7 +32,6 @@ class CreateExpedienteMedicosTable extends Migration
             $table->text('autosatisfacciones');/* aGREGAR AL FORMULARIO DE EXPEDIENTE */
             $table->text('idealizaciones');/* aGREGAR AL FORMULARIO DE EXPEDIENTE */
             $table->text('obs_generales');
-            $table->dateTime('fecha');
             $table->unsignedBigInteger('paciente_id');
 
             $table->foreign('paciente_id')

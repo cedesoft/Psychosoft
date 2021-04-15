@@ -190,13 +190,36 @@
         });
 
         $("#btnEliminar").click(function () {
-            object = getValuesGUI("DELETE");
-            sendEvent('/' + $('#txtID').val(), object);
+            Swal.fire({
+                title: '¿Estas segura?',
+                text: "No podrás deshacer esta acción",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#011f4b',
+                cancelButtonColor: '#d20b0b',
+                confirmButtonText: 'Si'
+                }).then((result) => {
+                if (result.isConfirmed) {
+                    object = getValuesGUI("DELETE");
+                    sendEvent('/' + $('#txtID').val(), object);
+
+                    Swal.fire(
+                    'Borrado',
+                    'La cita ha sido eliminada permanentemente',
+                    'success'
+                    )
+                }
+            })
         });
 
         $("#btnModificar").click(function () {
             object = getValuesGUI("PATCH");
             sendEvent('/' + $('#txtID').val(), object);
+            Swal.fire(
+                'Completado',
+                'La cita ha sido actualizada',
+                'success'
+            )
         });
 
         function getValuesGUI(method) {

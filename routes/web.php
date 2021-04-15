@@ -42,6 +42,10 @@ Route::get('/pacientes/habilitar-desactivar', function () {
     return view('pacientes.enable_disable');
 });
 
+Route::get('/pacientes/editar', function () {
+    return view('pacientes.edit');
+});
+
 Route::get('/pacientes', function () {
     return view('pacientes.show');
 });

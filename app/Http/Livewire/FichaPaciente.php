@@ -2,10 +2,9 @@
 
 namespace App\Http\Livewire;
 
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use App\Models\Paciente;
-use App\Models\FichaMedica;
-use Illuminate\Support\Facades\DB;
 
 class FichaPaciente extends Component
 {

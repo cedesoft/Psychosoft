@@ -279,7 +279,7 @@ return [
                     'text'    => 'Modificar Paciente',
                     'icon'    => 'fas fa-user-edit',
                     'icon_color' => 'green',
-                    'url'     => '#',
+                    'url'     => '/pacientes/editar',
                 ],
                 [
                     'text' => 'H/D Paciente',

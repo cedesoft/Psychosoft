@@ -28,7 +28,6 @@ class ExpedienteMedico extends Model
         'autosatisfacciones',
         'idealizaciones',
         'obs_generales',
-        'fecha',
         'paciente_id'
     ];
 

@@ -87,9 +87,11 @@
                                     </span>
                                 </td>
                                 <td class="px-2 py-2 whitespace-nowrap text-center text-sm font-medium">
-                                    <button wire:click="disablePatient('{{ $paciente->id }}', '{{ $paciente->status === 'A' ? 'Deshabilitar' : 'Habilitar'}}')" class="inline-flex items-center justify-center px-1 py-1 border border-transparent text-xs rounded-full text-white bg-purple-700 hover:bg-gray-900">
+                                    <button
+                                        wire:click="disablePatient('{{ $paciente->id }}', '{{ $paciente->status === 'A' ? 'Deshabilitar' : 'Habilitar'}}')"
+                                        class="inline-flex items-center justify-center px-1 py-1 border border-transparent text-xs rounded-full text-white bg-purple-700 hover:bg-gray-900">
                                         {{ $paciente->status === 'A' ? 'Deshabilitar' : 'Habilitar'}}
-                                      </button>{{-- 
+                                    </button>{{--
                                     <a href="#" class="text-indigo-600 hover:text-indigo-900">Edit</a> --}}
                                 </td>
                             </tr>

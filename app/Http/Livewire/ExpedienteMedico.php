@@ -55,8 +55,8 @@ class ExpedienteMedico extends Component
             'autosatisfacciones' => $validarDatos['autosatisfacciones'],
             'idealizaciones' => $validarDatos['idealizaciones'],
             'obs_generales' => $validarDatos['obsGenerales'],
-            'fecha' => $date,
-            'paciente_id' => $lastPaciente->id
+            'paciente_id' => $lastPaciente->id,
+            'created_at' => $date
         ]);
         $this->reset();
     }
