@@ -14,7 +14,13 @@
             </x-jet-dropdown-link>
         </form >
     </div> --}}
-    <div id='calendar' class="bg-white card border-primary pt-2 pb-2 pl-4 pr-4 m-auto"  style="border-radius: 15px;"></div>
+    <p><button id="authorize_button" style="display: none;">Login & Authorize</button></p>
+    <p><button id="addToCalendar" style="display: none;">Add to Google Calendar</button></p>
+    <p><button id="signout_button" style="display: none;">logOut</button></p>
+    <div id='calendar' class="bg-white card border-primary pt-2 pb-2 pl-4 pr-4 m-auto"  style="border-radius: 15px;">
+
+        
+        </div>
 
     <!--Modal -->
     <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -110,7 +116,8 @@
 
     <!-- Scripts Fullcalendar -->
     <script src="{{ asset('calendar/main.js') }}"></script>
-    <script src="{{ asset('js/calendar.js') }}"></script>
+    <script src="{{ asset('js/gCalendarAPI.js') }}"></script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -181,35 +188,30 @@
             calendar.updateSize();
             calendar.setOption('height', 560);
             calendar.render();
-        });
 
         
         $("#btnAgregar").click(function () {
             object = getValuesGUI("POST");
             sendEvent("", object);
+            addEvent.click()
+            
+            Swal.fire(
+                'Completado',
+                'La cita ha sido creada',
+                'success'
+            )
         });
 
         $("#btnEliminar").click(function () {
-            Swal.fire({
-                title: '¿Estas segura?',
-                text: "No podrás deshacer esta acción",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#011f4b',
-                cancelButtonColor: '#d20b0b',
-                confirmButtonText: 'Si'
-                }).then((result) => {
-                if (result.isConfirmed) {
-                    object = getValuesGUI("DELETE");
-                    sendEvent('/' + $('#txtID').val(), object);
+            
+            object = getValuesGUI("DELETE");
+            sendEvent('/' + $('#txtID').val(), object);
 
-                    Swal.fire(
-                    'Borrado',
-                    'La cita ha sido eliminada permanentemente',
-                    'success'
-                    )
-                }
-            })
+            Swal.fire(
+                'Borrado',
+                'La cita ha sido eliminada permanentemente',
+                'success'
+            )
         });
 
         $("#btnModificar").click(function () {
@@ -243,11 +245,13 @@
                 url: "{{ url('/agenda') }}" + action,
                 data: eventObject,
                 success: function (msg) {
-                    console.log(msg);
+                    /* console.log(msg); */
                     $('#exampleModal').modal('toggle');
+                    
                     calendar.refetchEvents();
+                    cleanFields();
                 },
-                error: function () { alert("Error"); }
+                error: function () { console.log("Error"); }
             });
         }
 
@@ -266,5 +270,20 @@
                 return day;
             }
         }
+
+        function cleanFields(){
+            $('#txtID').val('');
+            $('#txtTitulo').val('');
+            $('#txtDescripcion').val('');
+            $('#txtColor').val('#000000');
+            $('#fechaInicio').val('');
+            $('#fechaFin').val('');
+            $('#horaInicio').val('');
+            $('#horaFin').val('');
+            $('#btnModificar').show();
+            $('#btnEliminar').show();
+            $('#btnAgregar').show();
+        }
+    });
     </script>
 @stop
