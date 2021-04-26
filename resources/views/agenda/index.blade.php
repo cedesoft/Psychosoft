@@ -38,6 +38,10 @@
                             <label for="txtID">ID</label>
                             <input type="text" name="txtID" class="form-control" id="txtID">
                         </div>
+                        <div class="row mb-2 d-none">
+                            <label for="txtIdEventGoogle">ID Google</label>
+                            <input type="text" name="txtIdEventGoogle" class="form-control" id="txtIdEventGoogle">
+                        </div>
                         <div class="row mb-2">
                             <div class="row col-6">
                                 <div class="row col-12">
@@ -113,16 +117,13 @@
 
 @section('js')
     <script src="https://kit.fontawesome.com/1e766aad6d.js" crossorigin="anonymous"></script>
-
-    <!-- Scripts Fullcalendar -->
     <script src="{{ asset('calendar/main.js') }}"></script>
-    <script src="{{ asset('js/gCalendarAPI.js') }}"></script>
-    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 
     <script>
+        var calendar;
         document.addEventListener('DOMContentLoaded', function () {
             var calendarEl = document.getElementById('calendar');
-            var calendar = new FullCalendar.Calendar(calendarEl, {
+            calendar = new FullCalendar.Calendar(calendarEl, {
                 initialView: 'dayGridMonth',
                 themeSystem: 'bootstrap',
                 nowIndicator: true,
@@ -134,7 +135,6 @@
                 },
                 dayMaxEvents: true,
 
-                // buttons for switching between views
                 titleFormat: { year: 'numeric', month: 'long' },
                 customButtons: {
                     button: {
@@ -159,9 +159,11 @@
                     info.el.style.borderColor = 'red';
                     $('#txtID').val(info.event.id);
                     $('#txtTitulo').val(info.event.title);
+                    $('#txtIdEventGoogle').val(info.event.extendedProps.eventIdGoogle);
+                    
                     $('#txtDescripcion').val(info.event.extendedProps.descripcion);
                     $('#txtColor').val(info.event.backgroundColor);
-                    
+
                     $('#btnModificar').show();
                     $('#btnEliminar').show();
                     $('#btnAgregar').hide();
@@ -179,65 +181,14 @@
                     $('#horaFin').val(getDayOrTime(arrEndDate.getHours()) + ":" + getDayOrTime(arrEndDate.getMinutes()));
                     $('#exampleModal').modal('toggle');
                 },
-                
-
                 events: "{{ url('/agenda/show') }}"
             });
-        
+
             calendar.setOption('locale', 'es');
             calendar.updateSize();
             calendar.setOption('height', 560);
             calendar.render();
-
-        
-        $("#btnAgregar").click(function () {
-            object = getValuesGUI("POST");
-            sendEvent("", object);
-            addEvent.click()
-            
-            Swal.fire(
-                'Completado',
-                'La cita ha sido creada',
-                'success'
-            )
         });
-
-        $("#btnEliminar").click(function () {
-            
-            object = getValuesGUI("DELETE");
-            sendEvent('/' + $('#txtID').val(), object);
-
-            Swal.fire(
-                'Borrado',
-                'La cita ha sido eliminada permanentemente',
-                'success'
-            )
-        });
-
-        $("#btnModificar").click(function () {
-            object = getValuesGUI("PATCH");
-            sendEvent('/' + $('#txtID').val(), object);
-            Swal.fire(
-                'Completado',
-                'La cita ha sido actualizada',
-                'success'
-            )
-        });
-
-        function getValuesGUI(method) {
-            nuevoEvento = {
-                id: $('#txtID').val(),
-                titulo: $('#txtTitulo').val(),
-                descripcion: $('#txtDescripcion').val(),
-                color: $('#txtColor').val(),
-                textColor: '#FFFFFF',
-                inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
-                fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
-                '_token': $("meta[name='csrf-token']").attr("content"),
-                '_method': method
-            }
-            return nuevoEvento;
-        }
 
         function sendEvent(action, eventObject) {
             $.ajax({
@@ -245,45 +196,20 @@
                 url: "{{ url('/agenda') }}" + action,
                 data: eventObject,
                 success: function (msg) {
-                    /* console.log(msg); */
                     $('#exampleModal').modal('toggle');
-                    
+
+                    if (eventObject._method == "PATCH") { Swal.fire('Completado', 'Cita actualizada con exito', 'success') }
+                    else if (eventObject._method == "POST") { Swal.fire('Completado', 'Cita creada con exito', 'success') }
+                    else if (eventObject._method == "DELETE") { Swal.fire('Completado', 'Cita cancelada', 'warning') }
+
                     calendar.refetchEvents();
                     cleanFields();
                 },
-                error: function () { console.log("Error"); }
+                error: function () { Swal.fire('Error', 'Ocurrio un error al guardar la cita', 'error') }
             });
-        }
-
-        function getMonth(month) {
-            if (month.toString().length < 2) {
-                return "0" + month;
-            } else {
-                return month;
-            }
-        }
-
-        function getDayOrTime(day) {
-            if (day.toString().length < 2) {
-                return "0" + day;
-            } else {
-                return day;
-            }
-        }
-
-        function cleanFields(){
-            $('#txtID').val('');
-            $('#txtTitulo').val('');
-            $('#txtDescripcion').val('');
-            $('#txtColor').val('#000000');
-            $('#fechaInicio').val('');
-            $('#fechaFin').val('');
-            $('#horaInicio').val('');
-            $('#horaFin').val('');
-            $('#btnModificar').show();
-            $('#btnEliminar').show();
-            $('#btnAgregar').show();
-        }
-    });
+        }    
     </script>
+    
+    <script src="{{ asset('js/gCalendarAPI.js') }}"></script>
+    <script src="https://apis.google.com/js/client.js?onload=handleClientLoad"></script>
 @stop

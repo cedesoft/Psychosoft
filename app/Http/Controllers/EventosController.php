@@ -44,7 +44,8 @@ class EventosController extends Controller
             'color' => $dataEvent['color'],
             'textColor' => $dataEvent['textColor'],
             'start' => $dataEvent['inicio'],
-            'end' => $dataEvent['fin']
+            'end' => $dataEvent['fin'],
+            'eventIdGoogle' => $dataEvent['idEventGoogle']
         ]);
         print_r($dataEvent);
     }

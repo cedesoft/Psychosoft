@@ -1,5 +1,4 @@
 <div>
-
 	@if ($expediente == null)
 	<div class="d-flex align-items-center">
 		<strong>Cargando...</strong>

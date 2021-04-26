@@ -45,7 +45,7 @@
                     <span style="color: red;font-size:10px;">{{ $message }}</span>
             @enderror
             <div class="form-label-group in-border">
-                <input type="text" name="edad" class="form-control lb2" placeholder="Edad" wire:model='edad' />
+                <input type="text" name="edad" pattern="[0-9]{2}" class="form-control lb2" placeholder="Edad" wire:model='edad' />
                 <label for="edad" class="lbl">Edad</label>
             </div>
         </div>
@@ -54,7 +54,7 @@
                     <span style="color: red;font-size:10px;">{{ $message }}</span>
             @enderror
             <div class="form-label-group in-border">
-                <input type="tel" maxlength="10" minlength="10" name="telefono" class="form-control lb2" placeholder="Teléfono" wire:model='telefono' />
+                <input type="tel" maxlength="10" minlength="10" pattern="[0-9]{10}" name="telefono" class="form-control lb2" placeholder="Teléfono" wire:model='telefono' />
                 <label for="telefono" class="lbl">Teléfono</label>
             </div>
         </div>

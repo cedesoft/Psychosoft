@@ -25,6 +25,7 @@ class CreateEventosTable extends Migration
 
             $table->dateTime('start');
             $table->dateTime('end');
+            $table->string('eventIdGoogle');
 
             $table->timestamps();
         });

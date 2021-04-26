@@ -92,7 +92,12 @@ class EditPacienteTable extends Component
     public function render()
     {
         $pacientes = Paciente::where('nombre', 'like', "%{$this->search}%")
-            ->orWhere('apellidos', 'like', "%{$this->search}%");
+            ->where('status', '=', 'A')
+
+            ->orWhere(function ($query) {
+                $query->where('apellidos', 'like', "%{$this->search}%")
+                    ->where('status', '=', 'A');
+            });
 
         if ($this->field && $this->order) {
             $pacientes = $pacientes->orderBy($this->field, $this->order);

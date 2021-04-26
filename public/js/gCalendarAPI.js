@@ -1,28 +1,20 @@
 var CLIENT_ID = '914885265165-vpiajsisucrudse5sovrcbc10nfo77sc.apps.googleusercontent.com';
 var API_KEY = 'AIzaSyClp9LDTu2nxYnkbTO6P-e1879KCx3ylCY';
 
-// Array of API discovery doc URLs for APIs used by the quickstart
 var DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 
-// Authorization scopes required by the API; multiple scopes can be
-// included, separated by spaces.
 var SCOPES = "https://www.googleapis.com/auth/calendar";
+var EVENT_ID = 'este es el mensaje';
 
 var authorizeButton = document.getElementById('authorize_button');
 var signoutButton = document.getElementById('signout_button');
 var addEvent = document.getElementById('addToCalendar');
 
-/**
- *  On load, called to load the auth2 library and API client library.
- */
+
 function handleClientLoad() {
     gapi.load('client:auth2', initClient);
 }
 
-/**
- *  Initializes the API client library and sets up sign-in state
- *  listeners.
- */
 function initClient() {
     gapi.client.init({
         apiKey: API_KEY,
@@ -30,7 +22,6 @@ function initClient() {
         discoveryDocs: DISCOVERY_DOCS,
         scope: SCOPES
     }).then(function () {
-        // Listen for sign-in state changes.
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
         // Handle the initial sign-in state.
@@ -49,25 +40,19 @@ function initClient() {
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
-        addEvent.style.display = 'block';
-        listUpcomingEvents();
+        signoutButton.style.display = 'none';
+        addEvent.style.display = 'none';
+        /* listUpcomingEvents(); */
     } else {
-        authorizeButton.style.display = 'block';
+        authorizeButton.click();
         signoutButton.style.display = 'none';
     }
 }
 
-/**
- *  Sign in the user upon button click.
- */
 function handleAuthClick(event) {
     gapi.auth2.getAuthInstance().signIn();
 }
 
-/**
- *  Sign out the user upon button click.
- */
 function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
 }
@@ -82,12 +67,7 @@ function appendPre(message) {
     console.log(message);
 }
 
-/**
- * Print the summary and start datetime/date of the next ten events in
- * the authorized user's calendar. If no events are found an
- * appropriate message is printed.
- */
-function listUpcomingEvents() {
+/* function listUpcomingEvents() {
     gapi.client.calendar.events.list({
         'calendarId': 'primary',
         'timeMin': (new Date()).toISOString(),
@@ -112,18 +92,76 @@ function listUpcomingEvents() {
             appendPre('No upcoming events found.');
         }
     });
+} */
+
+$("#btnAgregar").click(function () {
+    var userChoices = getUserInput();
+    if (userChoices)
+        createEvent(userChoices);
+});
+
+$("#btnEliminar").click(function () {
+    object = getValuesGUI("DELETE", '');
+    sendEvent('/' + $('#txtID').val(), object);
+    deleteEvent($('#txtIdEventGoogle').val());
+});
+
+$("#btnModificar").click(function () {
+    object = getValuesGUI("PATCH", '');
+    sendEvent('/' + $('#txtID').val(), object);
+    updateEvent($('#txtIdEventGoogle').val());
+});
+
+function getMonth(month) {
+    if (month.toString().length < 2) {
+        return "0" + month;
+    } else {
+        return month;
+    }
+}
+
+function getDayOrTime(day) {
+    if (day.toString().length < 2) {
+        return "0" + day;
+    } else {
+        return day;
+    }
+}
+
+function cleanFields() {
+    $('#txtID').val('');
+    $('#txtTitulo').val('');
+    $('#txtDescripcion').val('');
+    $('#txtColor').val('#000000');
+    $('#fechaInicio').val('');
+    $('#fechaFin').val('');
+    $('#horaInicio').val('');
+    $('#horaFin').val('');
+    $('#btnModificar').show();
+    $('#btnEliminar').show();
+    $('#btnAgregar').show();
 }
 
 
-addEvent.onclick = function () {
-    var userChoices = getUserInput();
-    console.log(userChoices);
-    if (userChoices)
-        createEvent(userChoices);
+function getValuesGUI(method, event) {
+    if (event != null) {
+        nuevoEvento = {
+            id: $('#txtID').val(),
+            titulo: $('#txtTitulo').val(),
+            descripcion: $('#txtDescripcion').val(),
+            color: $('#txtColor').val(),
+            textColor: '#FFFFFF',
+            inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
+            fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
+            idEventGoogle: event,
+            '_token': $("meta[name='csrf-token']").attr("content"),
+            '_method': method
+        }
+        return nuevoEvento;
+    }
 }
 
 function getUserInput() {
-
     var dateStart = document.querySelector("#fechaInicio").value;
     var startTime = document.querySelector("#horaInicio").value;
     var dateEnd = document.querySelector("#fechaFin").value;
@@ -131,9 +169,8 @@ function getUserInput() {
     var eventDesc = document.querySelector("#txtTitulo").value;
     var description = document.querySelector("#txtDescripcion").value;
 
-    // check input values, they should not be empty
-    if (dateStart == "" || startTime == "" || endTime == "" || eventDesc == "") {
-        alert("All your input fields should have a meaningful value.");
+    if (dateStart == "" || dateEnd == "" || startTime == "" || endTime == "" || eventDesc == "" || description == "") {
+        Swal.fire('Error', 'Asegurese de llenar todos los campos', 'error')
         return
     }
     else return {
@@ -146,9 +183,7 @@ function getUserInput() {
     }
 }
 
-// Make an API call to create an event.  Give feedback to user.
 function createEvent(eventData) {
-    // First create resource that will be send to server.
     var resource = {
         "summary": eventData.eventTitle,
         "description": eventData.description,
@@ -159,47 +194,61 @@ function createEvent(eventData) {
             "dateTime": new Date(eventData.dateEnd + " " + eventData.endTime).toISOString()
         }
     };
-    // create the request
     var request = gapi.client.calendar.events.insert({
         'calendarId': 'primary',
         'resource': resource
     });
 
-    // execute the request and do something with response
     request.execute(function (resp) {
-        console.log(resp.id);
+        $('#txtIdEventGoogle').val(resp.id);
+        var ageVal = document.getElementById("txtIdEventGoogle").value;
+        object = getValuesGUI("POST", ageVal);
+        sendEvent("", object);
     });
 }
 
-/* function updateEvent(eventId) {
+function updateEvent(eventId) {
     if (eventId) {
         var eventToUpdate = gapi.client.calendar.events.get({
             "calendarId": 'primary',
             "eventId": eventId
         });
 
-        eventToUpdate.summary = $("#update-name").val(); //Replace with your values of course :)
-        eventToUpdate.location = $("#update-location").val();
-        eventToUpdate.description = $("#update-description").val();
+        eventToUpdate.summary = $("#txtTitulo").val();
+        eventToUpdate.description = $("#txtDescripcion").val();
         eventToUpdate.start = {
-            'dateTime': (new Date(2017, 04, 22, 8, 00, 00)).toISOString(), //2017-04-22 08h00m00s
-            'timeZone': 'Europe/Paris'
+            'dateTime': (new Date($('#fechaInicio').val() + " " + $('#horaInicio').val())).toISOString()
         };
         eventToUpdate.end = {
-            'dateTime': (new Date(2017, 04, 22, 9, 00, 00)).toISOString(), //2017-04-22 09h00m00s
-            'timeZone': 'Europe/Paris'
+            'dateTime': (new Date($('#fechaFin').val() + " " + $('#horaFin').val())).toISOString()
         };
 
         var request = gapi.client.calendar.events.patch({
             'calendarId': 'primary',
-            'eventId':eventId,
+            'eventId': eventId,
             'resource': eventToUpdate
         });
 
-        request.execute(function(event) {
+        request.execute(function (event) {
             console.log('Event updated: ' + event.htmlLink);
-
-            //Action. Maybe refresh your events list ? :)
         });
     }
-} */
+}
+
+function deleteEvent(eventId) {
+    console.log(eventId);
+    if (eventId) {
+        var params = {
+            calendarId: 'primary',
+            eventId: eventId,
+        };
+
+        gapi.client.calendar.events.delete(params, function (err) {
+            if (err) {
+                console.log('The API returned an error: ' + err);
+                return;
+            }
+            console.log('Event deleted.');
+        });
+    }
+}

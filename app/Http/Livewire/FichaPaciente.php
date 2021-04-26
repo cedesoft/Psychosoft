@@ -13,10 +13,10 @@ class FichaPaciente extends Component
 
     protected $rules = [
         'nombre' => 'required|min:5|max:30',
-        'apellidos' => 'required|max:60',
+        'apellidos' => 'required|min:5|max:60',
         'domicilio' => 'required',
         'nacimiento' => 'required|min:10|max:11',
-        'edad' => 'required',
+        'edad' => 'required|min:1|max:2',
         'telefono' => 'min:10|max:10',
 
         'escolaridad' => 'required',
@@ -27,6 +27,10 @@ class FichaPaciente extends Component
         'vive_con' => 'required'
     ];
 
+    public function updated($propertyName)
+    {
+        $this->validateOnly($propertyName);
+    }
     public function submit()
     {
         $date = date("Y-m-d H:i:s");

@@ -1,5 +1,6 @@
 <div>
-    @if ($paciente == null)
+    <div class="p-2">
+        @if ($paciente == null)
     <div class="d-flex align-items-center">
         <strong>Cargando...</strong>
         <div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
@@ -150,4 +151,5 @@
         </form>
     @endif
         
+    </div>
 </div>
