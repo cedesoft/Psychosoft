@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Dashboard')
+@section('title', 'Perfil')
 
 @section('content')
 <div class="container-fluid card bg-gray-50 col-lg-10 col-md-10 col-sm-12">

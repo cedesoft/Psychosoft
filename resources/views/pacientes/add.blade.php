@@ -1,6 +1,6 @@
 @extends ('adminlte::page')
 
-@section('title', 'Calendario')
+@section('title', 'Registro de Pacientes')
 
 @section('content')
 <div class="bg-white pt-1 pe-2 ps-2 pb-1 rounded-3">

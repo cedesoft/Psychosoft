@@ -1,6 +1,6 @@
 @extends ('adminlte::page')
 
-@section('title', 'Calendario')
+@section('title', 'Pacientes')
 
 @section('content')
     @livewire('pacientes-table')

@@ -24,28 +24,27 @@ Route::middleware(['auth:sanctum', 'verified'])->get('/agenda', function () {
     return view('agenda.index');
 });
 
-Route::resource('agenda', EventosController::class);
+Route::resource('agenda', EventosController::class)->middleware('auth:sanctum');
+
+Route::group(['prefix' => 'pacientes', 'middleware' => 'auth:sanctum'], function () {
+    Route::get('/', function () {
+        return view('pacientes.show');
+    });
+    Route::get('/agregar', function () {
+        return view('pacientes.add');
+    });
+    Route::get('/habilitar-desactivar', function () {
+        return view('pacientes.enable_disable');
+    });
+    Route::get('/editar', function () {
+        return view('pacientes.edit');
+    });
+});
 
 Route::get('/eventos', function () {
     return view('agenda.events');
-});
+})->middleware('auth:sanctum');
 
 Route::get('/perfil', function () {
     return view('profile.show');
-});
-
-Route::get('/pacientes/agregar', function () {
-    return view('pacientes.add');
-});
-
-Route::get('/pacientes/habilitar-desactivar', function () {
-    return view('pacientes.enable_disable');
-});
-
-Route::get('/pacientes/editar', function () {
-    return view('pacientes.edit');
-});
-
-Route::get('/pacientes', function () {
-    return view('pacientes.show');
 });

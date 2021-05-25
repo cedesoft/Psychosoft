@@ -24,10 +24,10 @@ function initClient() {
     }).then(function () {
         gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-        // Handle the initial sign-in state.
-        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
         authorizeButton.onclick = handleAuthClick;
         signoutButton.onclick = handleSignoutClick;
+        // Handle the initial sign-in state.
+        updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
     }, function (error) {
         appendPre(JSON.stringify(error, null, 2));
     });
@@ -66,33 +66,6 @@ function handleSignoutClick(event) {
 function appendPre(message) {
     console.log(message);
 }
-
-/* function listUpcomingEvents() {
-    gapi.client.calendar.events.list({
-        'calendarId': 'primary',
-        'timeMin': (new Date()).toISOString(),
-        'showDeleted': false,
-        'singleEvents': true,
-        'maxResults': 10,
-        'orderBy': 'startTime'
-    }).then(function (response) {
-        var events = response.result.items;
-        appendPre('Upcoming events:');
-
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-                var event = events[i];
-                var when = event.start.dateTime;
-                if (!when) {
-                    when = event.start.date;
-                }
-                appendPre(event.summary + ' (' + when + ')')
-            }
-        } else {
-            appendPre('No upcoming events found.');
-        }
-    });
-} */
 
 $("#btnAgregar").click(function () {
     var userChoices = getUserInput();
@@ -144,21 +117,30 @@ function cleanFields() {
 
 
 function getValuesGUI(method, event) {
-    if (event != null) {
-        nuevoEvento = {
-            id: $('#txtID').val(),
-            titulo: $('#txtTitulo').val(),
-            descripcion: $('#txtDescripcion').val(),
-            color: $('#txtColor').val(),
-            textColor: '#FFFFFF',
-            inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
-            fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
-            idEventGoogle: event,
-            '_token': $("meta[name='csrf-token']").attr("content"),
-            '_method': method
+    var iniDate = $('#fechaInicio').val() + " " + $('#horaInicio').val();
+    var endDate = $('#fechaFin').val() + " " + $('#horaFin').val();
+
+    if (event != null && Date.parse(iniDate) < Date.parse(endDate)) {
+        if (event != null) {
+            nuevoEvento = {
+                id: $('#txtID').val(),
+                titulo: $('#txtTitulo').val(),
+                descripcion: $('#txtDescripcion').val(),
+                color: $('#txtColor').val(),
+                textColor: '#FFFFFF',
+                inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
+                fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
+                idEventGoogle: event,
+                '_token': $("meta[name='csrf-token']").attr("content"),
+                '_method': method
+            }
+            return nuevoEvento;
         }
-        return nuevoEvento;
+    } else {
+        alert('formato no falido');
     }
+
+
 }
 
 function getUserInput() {

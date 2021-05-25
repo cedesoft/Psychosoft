@@ -14,7 +14,7 @@ class EditPacienteTable extends Component
     public $field = null;
     public $order = null;
     public $icon = '-circle';
-    protected $listeners = ['saveData'];
+    protected $listeners = ['saveData', 'refreshTable'];
 
     protected $queryString = [
         'search' => ['except' => ''],
@@ -22,6 +22,12 @@ class EditPacienteTable extends Component
         'order' => ['except' => null],
         'perPage' => ['except' => 5]
     ];
+
+    public function refreshTable()
+    {
+        //dd($this->start);
+        $this->refresh();
+    }
 
     public function saveData()
     {

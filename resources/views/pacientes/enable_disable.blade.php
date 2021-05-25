@@ -1,6 +1,6 @@
 @extends ('adminlte::page')
 
-@section('title', 'Calendario')
+@section('title', 'H/D Pacientes')
 
 @section('content')
 

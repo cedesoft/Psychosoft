@@ -12,8 +12,8 @@ class FichaPaciente extends Component
     public $telefono, $escolaridad, $ocupacion, $estado_civil, $religion, $adicciones, $vive_con;
 
     protected $rules = [
-        'nombre' => 'required|min:5|max:30',
-        'apellidos' => 'required|min:5|max:60',
+        'nombre' => 'required|max:30',
+        'apellidos' => 'required|min:4|max:60',
         'domicilio' => 'required',
         'nacimiento' => 'required|min:10|max:11',
         'edad' => 'required|min:1|max:2',

@@ -64,12 +64,12 @@ return [
     |
     */
 
-    'usermenu_enabled' => false,
+    'usermenu_enabled' => true,
     'usermenu_header' => true,
     'usermenu_header_class' => 'bg-dark',
-    'usermenu_image' => true,
+    'usermenu_image' => false,
     'usermenu_desc' => true,
-    'usermenu_profile_url' => true,
+    'usermenu_profile_url' => false,
 
     /*
     |--------------------------------------------------------------------------

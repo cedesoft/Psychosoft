@@ -59,7 +59,11 @@ class User extends Authenticatable
 
     public function adminlte_image()
     {
-        return 'https://ui-avatars.com/api/?name=Maria+Ediths&&background=000000&color=fff&&bold=true';
+        if ($this->profile_photo_path != null) {
+            return 'http://127.0.0.1:8000/storage/' . $this->profile_photo_path;
+        } else {
+            return 'https://ui-avatars.com/api/?name=' . $this->name . '+' . $this->lastName . '&&background=000000&color=fff&&bold=true';
+        }
     }
     public function adminlte_desc()
     {

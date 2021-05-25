@@ -4,7 +4,7 @@
 		<strong>Cargando...</strong>
 		<div class="spinner-border ms-auto" role="status" aria-hidden="true"></div>
 	</div>
-	@else
+	@else	
 	<form wire:submit.prevent='submitData' class="row g-3">
 		@if ($opcionExp == 2)
 		<div class="col-lg-9 m-auto mt-2 border rounded-3 bg-green-50">
@@ -21,70 +21,70 @@
 			<div class="form-label-group in-border">
 				<label for="motivoConsulta" class="form-label">Motivo de la consulta</label>
 				<textarea rows="3" name="motivoConsulta" class="form-control" wire:model='motivoConsulta'
-					placeholder="{{ $opcionExp == 2 ? $expediente->motivo_consulta : ''}}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->motivo_consulta : ''}}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-7">
 			<div class="form-label-group in-border">
 				<label for="problemaActual" class="form-label">Problema actual</label>
 				<textarea rows="3" name="problemaActual" class="form-control" wire:model='problemaActual'
-					placeholder="{{ $opcionExp == 2 ? $expediente->problema_actual : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->problema_actual : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-12">
 			<div class="form-label-group in-border">
 				<label for="sintomatologia" class="form-label">Cronología de la sintomatología</label>
 				<textarea rows="3" name="sintomatologia" class="form-control" wire:model='sintomatologia'
-					placeholder="{{ $opcionExp == 2 ? $expediente->crono_sintomatologia : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->crono_sintomatologia : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="tratamientosPrev" class="form-label">Tratamientos previos</label>
 				<textarea rows="3" name="tratamientosPrev" class="form-control" wire:model='tratamientosPrev'
-					placeholder="{{ $opcionExp == 2 ? $expediente->trata_previos : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->trata_previos : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-5 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="diagnostico" class="form-label">Diagnóstico</label>
 				<textarea rows="3" name="diagnostico" class="form-control" wire:model='diagnostico'
-					placeholder="{{ $opcionExp == 2 ? $expediente->diagnostico : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->diagnostico : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-3 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="org_economica" class="form-label">Organización economica</label>
 				<textarea rows="3" name="org_economica" class="form-control" wire:model='org_economica'
-					placeholder="{{ $opcionExp == 2 ? $expediente->org_economica : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->org_economica : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="org_recreativa" class="form-label">Organización recreativa</label>
 				<textarea rows="3" name="org_recreativa" class="form-control" wire:model='org_recreativa'
-					placeholder="{{ $opcionExp == 2 ? $expediente->org_recreativa : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->org_recreativa : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="org_personal" class="form-label">Organización personal</label>
 				<textarea rows="3" name="org_personal" class="form-control" wire:model='org_personal'
-					placeholder="{{ $opcionExp == 2 ? $expediente->org_personal : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->org_personal : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="histFamiliar" class="form-label">Historia familiar</label>
 				<textarea rows="3" name="histFamiliar" class="form-control" wire:model='histFamiliar'
-					placeholder="{{ $opcionExp == 2 ? $expediente->hist_familiar : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->hist_familiar : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="histLaboral" class="form-label">Historia laboral</label>
 				<textarea rows="3" name="histLaboral" class="form-control" wire:model='histLaboral'
-					placeholder="{{ $opcionExp == 2 ? $expediente->hist_laboral : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->hist_laboral : '' }}" required></textarea>
 			</div>
 		</div>
 
@@ -92,28 +92,28 @@
 			<div class="form-label-group in-border">
 				<label for="relSentSex" class="form-label">Relaciones sentimentales y/o sexuales</label>
 				<textarea rows="3" name="relSentSex" class="form-control" wire:model='relSentSex'
-					placeholder="{{ $opcionExp == 2 ? $expediente->rela_senti_sexual : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->rela_senti_sexual : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="relInterper" class="form-label">Relaciones interpersonales</label>
 				<textarea rows="3" name="relInterper" class="form-control" wire:model='relInterper'
-					placeholder="{{ $opcionExp == 2 ? $expediente->rela_interpersonales : ''}}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->rela_interpersonales : ''}}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="relIntraper" class="form-label">Relaciones intrapersonales</label>
 				<textarea rows="3" name="relIntraper" class="form-control" wire:model='relIntraper'
-					placeholder="{{ $opcionExp == 2 ? $expediente->rela_intrapersonales : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->rela_intrapersonales : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="col-lg-4 col-md-6">
 			<div class="form-label-group in-border">
 				<label for="autoestima" class="form-label">Autoestima</label>
 				<textarea rows="3" name="autoestima" class="form-control" wire:model='autoestima'
-					placeholder="{{ $opcionExp == 2 ? $expediente->autoestima : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->autoestima : '' }}" required></textarea>
 			</div>
 		</div>
 
@@ -121,7 +121,7 @@
 			<div class="form-label-group in-border">
 				<label for="autosatisfacciones" class="form-label">Autosatisfacciones</label>
 				<textarea rows="3" name="autosatisfacciones" class="form-control" wire:model='autosatisfacciones'
-					placeholder="{{ $opcionExp == 2 ? $expediente->autosatisfacciones : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->autosatisfacciones : '' }}" required></textarea>
 			</div>
 		</div>
 
@@ -129,7 +129,7 @@
 			<div class="form-label-group in-border">
 				<label for="idealizaciones" class="form-label">Idealizaciones</label>
 				<textarea rows="3" name="idealizaciones" class="form-control" wire:model='idealizaciones'
-					placeholder="{{ $opcionExp == 2 ? $expediente->idealizaciones : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->idealizaciones : '' }}" required></textarea>
 			</div>
 		</div>
 
@@ -137,7 +137,7 @@
 			<div class="form-label-group in-border">
 				<label for="obsGenerales" class="form-label">Observaciones Generales</label>
 				<textarea rows="3" name="obsGenerales" class="form-control" wire:model='obsGenerales'
-					placeholder="{{ $opcionExp == 2 ? $expediente->obs_generales : '' }}"></textarea>
+					placeholder="{{ $opcionExp == 2 ? $expediente->obs_generales : '' }}" required></textarea>
 			</div>
 		</div>
 		<div class="form-group mt-3">

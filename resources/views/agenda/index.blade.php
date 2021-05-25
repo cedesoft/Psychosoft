@@ -147,10 +147,13 @@
 
                 //Add event
                 dateClick: function (info) {
+                    cleanFields();
                     $('#exampleModal').modal('toggle');
                     var generateRandomKey = () => Date.now();
                     $('#txtID').val(generateRandomKey);
                     $('#fechaInicio').val(info.dateStr);
+                    
+                    $('#btnAgregar').show();
                     $('#btnModificar').hide();
                     $('#btnEliminar').hide();
                 },

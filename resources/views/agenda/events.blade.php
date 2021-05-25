@@ -1,6 +1,6 @@
 @extends ('adminlte::page')
 
-@section('title', 'Calendario')
+@section('title', 'Eventos')
 
 @section('content')
     {{-- <div class="d-none">

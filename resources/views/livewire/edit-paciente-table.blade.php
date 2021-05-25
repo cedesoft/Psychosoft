@@ -95,9 +95,12 @@
 										</div>
 										<div class="w-4 mr-2 transform hover:text-purple-500 hover:scale-110"
 											style="color: rgb(255, 0, 98);">
-											<button wire:click="editExpediente2('{{$paciente->id}}')"
-												data-bs-toggle="modal" data-bs-target="#modalForm2" data-bs-toggle="tooltip" title="Editar Expediente"><span
-													class="far fa-edit hover:text-gray-900 shadow-md"></span></button>
+											@if(sizeof($paciente->expediente) != 0)
+												<button wire:click="editExpediente2('{{$paciente->id}}')"
+													data-bs-toggle="modal" data-bs-target="#modalForm2" data-bs-toggle="tooltip" title="Editar Expediente"><span
+														class="far fa-edit hover:text-gray-900 shadow-md"></span></button>
+											@endif
+											
 										</div>
 									</div>
 								</td>

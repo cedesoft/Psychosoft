@@ -58,6 +58,7 @@ class EventosController extends Controller
      */
     public function show()
     {
+        //TODO: cambiar consulta para que solo el primer usuario pueda
         $data['eventos'] = Evento::all();
         return response()->json($data['eventos']);
     }

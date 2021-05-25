@@ -52,16 +52,19 @@ class FormEditExpediente extends Component
     public function getDataPaciente(Paciente $paciente)
     {
         $this->idPaciente = $paciente->id;
-        $expedientes = $paciente->expediente;
-        foreach ($expedientes as $exp) {
-            array_push($this->fechas, $exp->created_at);
+
+        if (sizeof($paciente->expediente) > 0) {
+            $expedientes = $paciente->expediente;
+            foreach ($expedientes as $exp) {
+                array_push($this->fechas, $exp->created_at);
+            }
+
+            $size = sizeof($this->fechas) - 1;
+            $fecha = $this->fechas[$size];
+            $this->fecha =  strftime("%A %d de %B del %Y", strtotime(date_format($fecha, "l jS F Y")));
+
+            $this->expediente = $expedientes[sizeof($expedientes) - 1]; //Ultimo expediente
         }
-
-        $size = sizeof($this->fechas) - 1;
-        $fecha = $this->fechas[$size];
-        $this->fecha =  strftime("%A %d de %B del %Y", strtotime(date_format($fecha, "l jS F Y")));
-
-        $this->expediente = $expedientes[sizeof($expedientes) - 1]; //Ultimo expediente
     }
 
     public function opcionExpediente($opcion)
@@ -110,6 +113,8 @@ class FormEditExpediente extends Component
             DB::table('expedientes_medicos')->where('id', $this->getIdExpediente())->update(['idealizaciones' => $this->motivoConsulta, 'updated_at' => $date]);
         if ($this->obsGenerales != null)
             DB::table('expedientes_medicos')->where('id', $this->getIdExpediente())->update(['obs_generales' => $this->motivoConsulta, 'updated_at' => $date]);
+
+        $this->emit('refreshTable');
     }
 
     private function saveExpediente($date)
@@ -155,7 +160,10 @@ class FormEditExpediente extends Component
     public function render()
     {
         if ($this->opcionExp == 1) {
-            return view('livewire.form-edit-expediente');
+            $this->expediente = 1;
+            return view('livewire.form-edit-expediente', [
+                'expedientes' => $this->expediente
+            ]);
         } else {
             return view('livewire.form-edit-expediente', [
                 'expedientes' => $this->expediente
