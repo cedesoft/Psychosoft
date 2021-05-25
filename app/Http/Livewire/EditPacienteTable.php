@@ -25,12 +25,12 @@ class EditPacienteTable extends Component
 
     public function refreshTable()
     {
-        //dd($this->start);
-        $this->refresh();
+        $this->render();
     }
 
     public function saveData()
     {
+        //dd()
         $this->render();
     }
     public function mount()

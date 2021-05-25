@@ -34,7 +34,7 @@ class ExpedienteMedico extends Component
     {
         $date = date("Y-m-d H:i:s");
         $lastPaciente = DB::table('pacientes')->latest('id')->first();
-        //dd("The last id inserted on patients is -> " . $id->id);
+        //dd("The last id inserted on patients is -> " . $lastPaciente->id);
 
         $validarDatos = $this->validate();
         DB::table('expedientes_medicos')->insert([

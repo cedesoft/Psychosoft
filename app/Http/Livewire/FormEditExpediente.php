@@ -141,6 +141,7 @@ class FormEditExpediente extends Component
             'paciente_id' =>  $this->idPaciente,
             'created_at' => $date
         ]);
+        $this->emit('refreshTable');
     }
 
     public function submitData()
