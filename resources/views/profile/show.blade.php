@@ -49,6 +49,7 @@
 
 @section('css')
     <link rel="stylesheet" href="/css/admin_custom.css">
+    <link rel="icon" type="image/png" href="fav.png">
 @stop
 
 @section('js')

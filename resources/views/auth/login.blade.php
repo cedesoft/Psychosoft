@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ URL::asset('css/login.css') }}">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Spartan:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="fav.png">
     <title>Iniciar Sesión</title>
 </head>
 

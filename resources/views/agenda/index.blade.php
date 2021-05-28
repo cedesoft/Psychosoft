@@ -97,6 +97,7 @@
 
 @section('css')
     <link href=" {{ asset('calendar/main.css') }}" rel='stylesheet' />
+    <link rel="icon" type="image/png" href="fav.png">
     <link rel="stylesheet" href="css/admin_custom.css">
     <link href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/css/bootstrap-datetimepicker.css" rel="stylesheet" />
     <style>

@@ -19,12 +19,12 @@ class EventosApiController extends ResponseController
     {
         $event = Evento::find($id);
         if (is_null($event)) {
-            return $this->sendError('Book not found');
+            return $this->sendError('Event not found');
         }
-        return $this->sendResponse($event->toArray(), 'Book retrieved');
+        return $this->sendResponse($event->toArray(), 'Event retrieved');
     }
 
-    public function update(Request $request): \Illuminate\Http\JsonResponse
+    /* public function update(Request $request): \Illuminate\Http\JsonResponse
     {
         $input = $request->all();
         $event = Evento::find($input['id']);
@@ -52,5 +52,5 @@ class EventosApiController extends ResponseController
     {
         $event->delete();
         return $this->sendResponse($event->toArray(), 'Event removed');
-    }
+    } */
 }
