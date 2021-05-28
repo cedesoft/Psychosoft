@@ -33,10 +33,6 @@ function initClient() {
     });
 }
 
-/**
- *  Called when the signed in status changes, to update the UI
- *  appropriately. After a sign-in, the API is called.
- */
 function updateSigninStatus(isSignedIn) {
     if (isSignedIn) {
         authorizeButton.style.display = 'none';
@@ -57,32 +53,29 @@ function handleSignoutClick(event) {
     gapi.auth2.getAuthInstance().signOut();
 }
 
-/**
- * Append a pre element to the body containing the given message
- * as its text node. Used to display the results of the API call.
- *
- * @param {string} message Text to be placed in pre element.
- */
 function appendPre(message) {
     console.log(message);
 }
 
 $("#btnAgregar").click(function () {
     var userChoices = getUserInput();
-    if (userChoices)
+    if (userChoices !== null) {
         createEvent(userChoices);
+    }
 });
 
 $("#btnEliminar").click(function () {
     object = getValuesGUI("DELETE", '');
-    sendEvent('/' + $('#txtID').val(), object);
     deleteEvent($('#txtIdEventGoogle').val());
+    sendEvent('/' + $('#txtID').val(), object);
 });
 
 $("#btnModificar").click(function () {
     object = getValuesGUI("PATCH", '');
-    sendEvent('/' + $('#txtID').val(), object);
-    updateEvent($('#txtIdEventGoogle').val());
+    if(object !== null) {
+        sendEvent('/' + $('#txtID').val(), object);
+        updateEvent($('#txtIdEventGoogle').val());
+    }
 });
 
 function getMonth(month) {
@@ -117,27 +110,43 @@ function cleanFields() {
 
 
 function getValuesGUI(method, event) {
-    var iniDate = $('#fechaInicio').val() + " " + $('#horaInicio').val();
-    var endDate = $('#fechaFin').val() + " " + $('#horaFin').val();
+    let iniDate = $('#fechaInicio').val() + " " + $('#horaInicio').val();
+    let endDate = $('#fechaFin').val() + " " + $('#horaFin').val();
+    let nuevoEvento = {};
 
-    if (event != null && Date.parse(iniDate) < Date.parse(endDate)) {
-        if (event != null) {
-            nuevoEvento = {
-                id: $('#txtID').val(),
-                titulo: $('#txtTitulo').val(),
-                descripcion: $('#txtDescripcion').val(),
-                color: $('#txtColor').val(),
-                textColor: '#FFFFFF',
-                inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
-                fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
-                idEventGoogle: event,
-                '_token': $("meta[name='csrf-token']").attr("content"),
-                '_method': method
-            }
-            return nuevoEvento;
+    if (Date.parse(iniDate) < Date.parse(endDate) && method !== 'DELETE') {
+        nuevoEvento = {
+            id: $('#txtID').val(),
+            titulo: $('#txtTitulo').val(),
+            descripcion: $('#txtDescripcion').val(),
+            color: $('#txtColor').val(),
+            textColor: '#FFFFFF',
+            inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
+            fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
+            idEventGoogle: event,
+            '_token': $("meta[name='csrf-token']").attr("content"),
+            '_method': method
         }
-    } else {
-        alert('formato no falido');
+        return nuevoEvento;
+    } 
+    if(method === 'DELETE'){
+        nuevoEvento = {
+            id: $('#txtID').val(),
+            titulo: $('#txtTitulo').val(),
+            descripcion: $('#txtDescripcion').val(),
+            color: $('#txtColor').val(),
+            textColor: '#FFFFFF',
+            inicio: $('#fechaInicio').val() + " " + $('#horaInicio').val(),
+            fin: $('#fechaFin').val() + " " + $('#horaFin').val(),
+            idEventGoogle: event,
+            '_token': $("meta[name='csrf-token']").attr("content"),
+            '_method': method
+        }
+        return nuevoEvento;
+    }
+    else {
+        Swal.fire('Error', 'Formato de fecha no válido', 'error');
+        return null;
     }
 
 
@@ -151,17 +160,27 @@ function getUserInput() {
     var eventDesc = document.querySelector("#txtTitulo").value;
     var description = document.querySelector("#txtDescripcion").value;
 
-    if (dateStart == "" || dateEnd == "" || startTime == "" || endTime == "" || eventDesc == "" || description == "") {
+    if (dateStart === "" || dateEnd === "" || startTime === "" || endTime === "" || eventDesc === "" || description === "") {
         Swal.fire('Error', 'Asegurese de llenar todos los campos', 'error')
-        return
+        return null;
     }
-    else return {
-        'dateStart': dateStart,
-        'dateEnd': dateEnd,
-        'startTime': startTime,
-        'endTime': endTime,
-        'eventTitle': eventDesc,
-        'description': description,
+    
+    var iniDate = dateStart + " " + startTime;
+    var endDate = dateEnd + " " + endTime;
+
+    if (Date.parse(iniDate) < Date.parse(endDate)) {
+        return {
+            'dateStart': dateStart,
+            'dateEnd': dateEnd,
+            'startTime': startTime,
+            'endTime': endTime,
+            'eventTitle': eventDesc,
+            'description': description,
+        }
+    }
+    else {
+        Swal.fire('Error', 'Asegurese de escribir un formato de fecha válido', 'error');
+        return null;
     }
 }
 
@@ -185,7 +204,10 @@ function createEvent(eventData) {
         $('#txtIdEventGoogle').val(resp.id);
         var ageVal = document.getElementById("txtIdEventGoogle").value;
         object = getValuesGUI("POST", ageVal);
-        sendEvent("", object);
+        if(object != null){
+            sendEvent("", object);
+            
+        }
     });
 }
 
@@ -212,25 +234,29 @@ function updateEvent(eventId) {
         });
 
         request.execute(function (event) {
-            console.log('Event updated: ' + event.htmlLink);
+            //console.log('Event updated: ' + event.htmlLink);
         });
     }
 }
 
 function deleteEvent(eventId) {
-    console.log(eventId);
     if (eventId) {
-        var params = {
-            calendarId: 'primary',
-            eventId: eventId,
-        };
+        var eventToUpdate = gapi.client.calendar.events.get({
+            "calendarId": 'primary',
+            "eventId": eventId
+        });
 
-        gapi.client.calendar.events.delete(params, function (err) {
-            if (err) {
-                console.log('The API returned an error: ' + err);
-                return;
-            }
-            console.log('Event deleted.');
+        eventToUpdate.summary = 'Cita Cancelada';
+        eventToUpdate.description = 'Sin Descripcion Adicional';
+
+        var request = gapi.client.calendar.events.patch({
+            'calendarId': 'primary',
+            'eventId': eventId,
+            'resource': eventToUpdate
+        });
+
+        request.execute(function (event) {
+            //console.log('Event updated: ' + event.htmlLink);
         });
     }
 }
